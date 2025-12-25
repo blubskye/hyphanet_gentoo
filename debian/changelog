@@ -1,0 +1,8 @@
+hyphanet (0.7.5+build1503-1) unstable; urgency=medium
+
+  * Initial Debian package for Hyphanet build 1503
+  * Hotfix release addressing thread leak causing node overload
+  * Fixed display issues with incomplete HTML input tags
+  * Added two new seednodes for improved connectivity
+
+ -- Package Maintainer <maintainer@example.com>  Wed, 25 Dec 2024 12:00:00 +0000

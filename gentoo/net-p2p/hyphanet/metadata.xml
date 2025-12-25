@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>blubskye@github.com</email>
+		<name>blubskye</name>
+	</maintainer>
+	<longdescription lang="en">
+		Hyphanet (formerly Freenet) is free software which lets you anonymously
+		share files, browse and publish "freesites" (websites accessible only
+		through Hyphanet) and chat on forums, all without fear of censorship.
+
+		Hyphanet is decentralized to make it less vulnerable to attack, and if
+		used in "darknet" mode, where users only connect to their friends, is
+		very difficult to detect.
+
+		Communications by Hyphanet nodes are encrypted and are routed through
+		other nodes to make it extremely difficult to determine who is
+		requesting the information and what its content is.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">hyphanet/fred</remote-id>
+		<bugs-to>https://github.com/hyphanet/fred/issues</bugs-to>
+	</upstream>
+	<use>
+		<flag name="systemd">Install systemd service file</flag>
+	</use>
+</pkgmetadata>

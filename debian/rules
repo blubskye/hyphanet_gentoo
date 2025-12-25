@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE = 1
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	# Nothing to build - using pre-built JARs
+
+override_dh_auto_install:
+	# Create directories
+	install -d $(CURDIR)/debian/hyphanet/opt/hyphanet
+	install -d $(CURDIR)/debian/hyphanet/opt/hyphanet/lib
+	install -d $(CURDIR)/debian/hyphanet/var/lib/hyphanet
+	install -d $(CURDIR)/debian/hyphanet/usr/bin
+
+	# Install JAR files (these should be downloaded separately)
+	# install -m 644 freenet.jar $(CURDIR)/debian/hyphanet/opt/hyphanet/
+	# install -m 644 freenet-ext.jar $(CURDIR)/debian/hyphanet/opt/hyphanet/lib/
+
+	# Install wrapper config
+	install -m 644 debian/wrapper.conf $(CURDIR)/debian/hyphanet/opt/hyphanet/
+
+	# Install run script
+	install -m 755 debian/run.sh $(CURDIR)/debian/hyphanet/opt/hyphanet/
+
+	# Create symlink
+	ln -s /opt/hyphanet/run.sh $(CURDIR)/debian/hyphanet/usr/bin/hyphanet
+
+override_dh_installsystemd:
+	dh_installsystemd --name=hyphanet

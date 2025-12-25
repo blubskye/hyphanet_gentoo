@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    purge)
+        # Remove user and group
+        if getent passwd hyphanet >/dev/null; then
+            deluser --quiet hyphanet || true
+        fi
+        if getent group hyphanet >/dev/null; then
+            delgroup --quiet hyphanet || true
+        fi
+
+        # Remove data directory
+        rm -rf /var/lib/hyphanet
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

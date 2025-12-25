@@ -1,0 +1,33 @@
+[Unit]
+Description=Hyphanet - Anonymous Peer-to-Peer Network
+Documentation=https://www.hyphanet.org/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=hyphanet
+Group=hyphanet
+WorkingDirectory=/var/lib/hyphanet
+EnvironmentFile=-/etc/default/hyphanet
+EnvironmentFile=-/etc/conf.d/hyphanet
+
+ExecStart=/opt/hyphanet/run.sh start
+ExecStop=/opt/hyphanet/run.sh stop
+
+Restart=on-failure
+RestartSec=10
+
+# Security hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/lib/hyphanet
+
+# Resource limits
+LimitNOFILE=65536
+MemoryMax=2G
+
+[Install]
+WantedBy=multi-user.target

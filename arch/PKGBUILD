@@ -1,0 +1,61 @@
+# Maintainer: Your Name <your.email@example.com>
+
+pkgname=hyphanet
+pkgver=0.7.5.1503
+pkgrel=1
+pkgdesc="Anonymous peer-to-peer distributed data store (formerly Freenet)"
+arch=('any')
+url="https://www.hyphanet.org/"
+license=('GPL2')
+depends=('java-runtime>=11' 'bash')
+makedepends=()
+backup=('etc/default/hyphanet')
+install=hyphanet.install
+source=(
+    "https://github.com/hyphanet/fred/releases/download/build01503/freenet-build01503.jar"
+    "https://github.com/hyphanet/fred/releases/download/build01503/freenet-ext-29.jar"
+    "hyphanet.service"
+    "hyphanet.default"
+    "wrapper.conf"
+    "run.sh"
+    "hyphanet.install"
+)
+sha256sums=(
+    'SKIP'  # Update with actual checksum
+    'SKIP'  # Update with actual checksum
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+    'SKIP'
+)
+noextract=("freenet-build01503.jar" "freenet-ext-29.jar")
+
+package() {
+    # Create directories
+    install -d "${pkgdir}/opt/hyphanet"
+    install -d "${pkgdir}/opt/hyphanet/lib"
+    install -d -m 750 "${pkgdir}/var/lib/hyphanet"
+    install -d "${pkgdir}/usr/lib/systemd/system"
+    install -d "${pkgdir}/etc/default"
+    install -d "${pkgdir}/usr/bin"
+
+    # Install JAR files
+    install -Dm644 "${srcdir}/freenet-build01503.jar" "${pkgdir}/opt/hyphanet/freenet.jar"
+    install -Dm644 "${srcdir}/freenet-ext-29.jar" "${pkgdir}/opt/hyphanet/lib/freenet-ext.jar"
+
+    # Install systemd service
+    install -Dm644 "${srcdir}/hyphanet.service" "${pkgdir}/usr/lib/systemd/system/hyphanet.service"
+
+    # Install default configuration
+    install -Dm644 "${srcdir}/hyphanet.default" "${pkgdir}/etc/default/hyphanet"
+
+    # Install wrapper config
+    install -Dm644 "${srcdir}/wrapper.conf" "${pkgdir}/opt/hyphanet/wrapper.conf"
+
+    # Install run script
+    install -Dm755 "${srcdir}/run.sh" "${pkgdir}/opt/hyphanet/run.sh"
+
+    # Create symlink
+    ln -s /opt/hyphanet/run.sh "${pkgdir}/usr/bin/hyphanet"
+}

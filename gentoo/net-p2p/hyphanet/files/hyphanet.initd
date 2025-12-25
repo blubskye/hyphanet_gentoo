@@ -1,0 +1,22 @@
+#!/sbin/openrc-run
+# Copyright 2024 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="Hyphanet"
+description="Anonymous peer-to-peer distributed data store"
+
+command="/opt/hyphanet/run.sh"
+command_args="start"
+command_user="hyphanet:hyphanet"
+command_background="yes"
+pidfile="/var/lib/hyphanet/hyphanet.pid"
+directory="/var/lib/hyphanet"
+
+depend() {
+    need net
+    after net
+}
+
+start_pre() {
+    checkpath -d -m 0750 -o hyphanet:hyphanet /var/lib/hyphanet
+}
